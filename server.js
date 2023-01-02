@@ -5,7 +5,15 @@ const app=exp()
 const cors = require('cors')
 app.use(cors())
 //connecting react build with express server
-app.use(exp.static(path.join(__dirname,'./build')))
+app.use(exp.static(path.join(__dirname, "./build")));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
+});
 
 const dbConnectionString="mongodb+srv://madhu:madhu@clusterbackend.szevd.mongodb.net/myfirstdb?retryWrites=true&w=majority"
 
